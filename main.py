@@ -1,5 +1,5 @@
 import sys 
-from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox) # application handler, empty GUI widget
+from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox, QPlainTextEdit) # application handler, empty GUI widget
 from PyQt5.QtGui import QIcon
 
 class Calculator(QWidget): # QWidget 클래스를 상속받아서 클래스를 정의
@@ -9,11 +9,14 @@ class Calculator(QWidget): # QWidget 클래스를 상속받아서 클래스를 �
         self.initUI() # 나머지 초기화는 initUI 함수에 정의
 
     def initUI(self):
+        self.te1 = QPlainTextEdit()
+        self.te1.setReadOnly(True)
+
         self.btn1=QPushButton('Message', self)
         self.btn1.clicked.connect(self.activateMessage)
 
         vbox=QVBoxLayout()
-        vbox.addStretch(1)
+        vbox.addWidget(self.te1)
         vbox.addWidget(self.btn1)
         vbox.addStretch(1)
 
@@ -25,7 +28,8 @@ class Calculator(QWidget): # QWidget 클래스를 상속받아서 클래스를 �
         self.show() # 윈도우 화면이 표시되도록 호출
 
     def activateMessage(self):
-        QMessageBox.information(self, 'information', 'Button Clicked!')
+        # QMessageBox.information(self, 'information', 'Button Clicked!')
+        self.te1.appendPlainText('Button clicked!')
 
 if __name__=='__main__': # pyqt는 애플리케이션 당 1개의 QApplication이 필요
     app = QApplication(sys.argv) # QApplication 인스턴스 생성
